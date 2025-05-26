@@ -3,15 +3,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
 body {
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
   background: #f6f7fb;
   color: #222;
-  margin: 0;
-  padding: 0;
+  padding-top: 80px;
 }
 
 header, footer {
@@ -43,16 +41,14 @@ section {
   margin-bottom: 2.5em;
 }
 
-.noticias-titulo, .noticia-card h3 {
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
+.noticias-titulo, .noticia-card h3, .depoimentos-titulo {
   font-weight: 700;
   font-size: 2rem;
   color: #1a237e;
   margin-bottom: 0.5em;
 }
 
-.noticias-descricao, .noticia-card p, .noticia-card ul, .noticia-card blockquote {
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
+.noticias-descricao, .noticia-card p, .noticia-card ul, .noticia-card blockquote, .depoimentos-descricao, .depoimento-card p {
   font-size: 1.1rem;
   color: #333;
   line-height: 1.7;
@@ -73,7 +69,7 @@ section {
   border-radius: 4px;
 }
 
-.noticia-card {
+.noticia-card, .depoimento-card {
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(60,60,100,0.07);
@@ -81,23 +77,23 @@ section {
   padding: 1.2em 1.5em;
   transition: box-shadow 0.2s, transform 0.2s;
 }
-.noticia-card:hover {
+.noticia-card:hover, .depoimento-card:hover {
   box-shadow: 0 6px 24px rgba(60,60,100,0.13);
   transform: translateY(-2px) scale(1.01);
 }
 
-.noticia-card a {
+.noticia-card a, .depoimento-card a {
   color: #1976d2;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
 }
-.noticia-card a:hover {
+.noticia-card a:hover, .depoimento-card a:hover {
   text-decoration: underline;
   color: #0d47a1;
 }
 
-.noticias-titulo {
+.noticias-titulo, .depoimentos-titulo {
   margin-top: 1.5em;
 }
 
@@ -105,18 +101,6 @@ footer {
   font-size: 1rem;
   padding: 1.5em 0 1em 0;
   text-align: center;
-}
-
-@media (max-width: 700px) {
-  .container {
-    padding: 0 0.5em;
-  }
-  .noticia-card {
-    padding: 1em 0.7em;
-  }
-  .noticias-titulo {
-    font-size: 1.4rem;
-  }
 }
 
 /* Botão de ação */
@@ -137,4 +121,119 @@ footer {
 .btn-acao:hover {
   background: #0d47a1;
   transform: scale(1.04);
+}
+
+/* Banner institucional */
+.banner-principal {
+  background: linear-gradient(rgba(0,48,135,0.8), rgba(0,102,166,0.8)), url('imagens/cetep.jpg') center/cover no-repeat;
+  text-align: center;
+  padding: 80px 24px 40px 24px;
+  color: #FFF;
+  margin-bottom: 2em;
+  border-radius: 0 0 24px 24px;
+}
+.logo-principal {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+}
+.banner-titulo {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.banner-descricao {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
+.btn-saiba-mais {
+  display: inline-block;
+  background: #FFC107;
+  color: #1A202C;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+.btn-saiba-mais:hover {
+  background: #E0A800;
+}
+
+/* Carrossel de depoimentos */
+.carrossel-depoimentos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 1.5em 0 0.5em 0;
+  position: relative;
+}
+.depoimento-slide {
+  display: none;
+  min-width: 0;
+  max-width: 500px;
+  margin: 0 1em;
+  transition: opacity 0.3s;
+}
+.depoimento-slide.ativo {
+  display: block;
+  opacity: 1;
+}
+.depoimento-prev, .depoimento-next {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.depoimento-prev:hover, .depoimento-next:hover {
+  background: #0d47a1;
+}
+
+/* Links internos nas áreas de formação */
+.noticia-card ul li a {
+  color: #1976d2;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.noticia-card ul li a:hover {
+  color: #0d47a1;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding: 0 0.5em;
+  }
+  .noticia-card, .depoimento-card {
+    padding: 1em 0.7em;
+  }
+  .noticias-titulo, .depoimentos-titulo {
+    font-size: 1.4rem;
+  }
+  .banner-principal {
+    padding: 48px 8px 24px 8px;
+  }
+  .logo-principal {
+    width: 80px;
+    height: 80px;
+  }
+  .carrossel-depoimentos {
+    flex-direction: column;
+    gap: 0.2em;
+  }
+  .depoimento-slide {
+    margin: 0.5em 0;
+  }
 }
