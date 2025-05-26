@@ -1,0 +1,194 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça os cursos técnicos do CETEP LNAB, como Informática, Enfermagem e Meio Ambiente.">
+  <meta name="robots" content="index, follow">
+  <title>Cursos | CETEP LNAB</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="imagens/cetep.jpg" type="image/x-icon">
+</head>
+<body>
+  <header class="fixed-header">
+    <div class="container">
+      <div class="menu-desktop">
+        <div class="logo-container">
+          <a href="index.html"><img src="imagens/cetep.jpg" alt="Logo do CETEP LNAB" class="logo"></a>
+          <h1>CETEP LNAB</h1>
+        </div>
+        <nav aria-label="Navegação principal">
+          <ul>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+            <li class="has-submenu">
+              <a id="cursos-desktop" class="nav-link active" aria-current="page">Cursos <i class="fas fa-chevron-down"></i></a>
+              <div id="content-cursos-desktop" class="submenu">
+                <a href="cursos.html">Todos os Cursos</a>
+                <a href="cursos.html#meio-ambiente">Técnico em Meio Ambiente</a>
+                <a href="cursos.html#enfermagem">Técnico em Enfermagem</a>
+                <a href="cursos.html#analises-clinicas">Técnico em Análises Clínicas</a>
+                <a href="cursos.html#edificacoes">Técnico em Edificações</a>
+                <a href="cursos.html#nutricao">Técnico em Nutrição e Dietética</a>
+                <a href="cursos.html#hospedagem">Técnico em Hospedagem e Comércio</a>
+                <a href="cursos.html#informatica">Técnico em Informática</a>
+                <a href="cursos.html#desenho-civil">Técnico em Desenho de Construção Civil</a>
+                <a href="cursos.html#seguranca">Técnico em Segurança do Trabalho</a>
+              </div>
+            </li>
+            <li class="has-submenu">
+              <a id="projetos-desktop" class="nav-link">Projetos <i class="fas fa-chevron-down"></i></a>
+              <div id="content-projetos-desktop" class="submenu">
+                <a href="projetos.html">Todos os Projetos</a>
+                <a href="projetos.html#mostra-2013">I Mostra de Projetos</a>
+                <a href="projetos.html#saude-ambiente">Saúde e Meio Ambiente</a>
+                <a href="projetos.html#parcerias">Parcerias</a>
+              </div>
+            </li>
+            <li><a href="noticias.html" class="nav-link">Notícias</a></li>
+            <li><a href="depoimentos.html" class="nav-link">Depoimentos</a></li>
+            <li><a href="galeria.html" class="nav-link">Galeria</a></li>
+            <li><a href="contato.html" class="nav-link">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="menu-mobile">
+        <div class="logo-container">
+          <a href="index.html"><img src="imagens/cetep.jpg" alt="Logo do CETEP LNAB" class="logo"></a>
+          <h1>CETEP LNAB</h1>
+        </div>
+        <div class="menu-hamburguer">
+          <i class="fas fa-bars open" id="open"></i>
+          <i class="fas fa-times close" id="close"></i>
+        </div>
+        <div class="content-mobile" id="content-mobile">
+          <nav aria-label="Navegação mobile">
+            <ul>
+              <li><a href="index.html" class="nav-link">Home</a></li>
+              <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+              <li class="has-submenu">
+                <a id="cursos-mobile" class="nav-link active" aria-current="page">Cursos <i class="fas fa-chevron-down"></i></a>
+                <div id="content-cursos-mobile" class="submenu">
+                  <a href="cursos.html">Todos os Cursos</a>
+                  <a href="cursos.html#meio-ambiente">Técnico em Meio Ambiente</a>
+                  <a href="cursos.html#enfermagem">Técnico em Enfermagem</a>
+                  <a href="cursos.html#analises-clinicas">Técnico em Análises Clínicas</a>
+                  <a href="cursos.html#edificacoes">Técnico em Edificações</a>
+                  <a href="cursos.html#nutricao">Técnico em Nutrição e Dietética</a>
+                  <a href="cursos.html#hospedagem">Técnico em Hospedagem e Comércio</a>
+                  <a href="cursos.html#informatica">Técnico em Informática</a>
+                  <a href="cursos.html#desenho-civil">Técnico em Desenho de Construção Civil</a>
+                  <a href="cursos.html#seguranca">Técnico em Segurança do Trabalho</a>
+                </div>
+              </li>
+              <li class="has-submenu">
+                <a id="projetos-mobile" class="nav-link">Projetos <i class="fas fa-chevron-down"></i></a>
+                <div id="content-projetos-mobile" class="submenu">
+                  <a href="projetos.html">Todos os Projetos</a>
+                  <a href="projetos.html#mostra-2013">I Mostra de Projetos</a>
+                  <a href="projetos.html#saude-ambiente">Saúde e Meio Ambiente</a>
+                  <a href="projetos.html#parcerias">Parcerias</a>
+                </div>
+              </li>
+              <li><a href="noticias.html" class="nav-link">Notícias</a></li>
+              <li><a href="depoimentos.html" class="nav-link">Depoimentos</a></li>
+              <li><a href="galeria.html" class="nav-link">Galeria</a></li>
+              <li><a href="contato.html" class="nav-link">Contato</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="cursos">
+    <div class="container">
+      <h2 class="cursos-titulo">Nossos Cursos Técnicos</h2>
+      <p class="cursos-descricao">Explore nossa oferta de cursos técnicos, projetados para preparar você para o mercado de trabalho com formação prática e atualizada.</p>
+      <div class="curso-item" id="informatica">
+        <h3>Técnico em Informática</h3>
+        <p>Aprenda programação, redes, suporte técnico e desenvolvimento de software, com práticas em laboratórios modernos.</p>
+      </div>
+      <div class="curso-item" id="enfermagem">
+        <h3>Técnico em Enfermagem</h3>
+        <p>Formação para atuar em hospitais, clínicas e unidades de saúde, com foco em cuidados e técnicas avançadas.</p>
+      </div>
+      <div class="curso-item" id="meio-ambiente">
+        <h3>Técnico em Meio Ambiente</h3>
+        <p>Capacitação em gestão ambiental, sustentabilidade e preservação de recursos naturais.</p>
+      </div>
+      <div class="curso-item" id="analises-clinicas">
+        <h3>Técnico em Análises Clínicas</h3>
+        <p>Realize exames laboratoriais e análises diagnósticas com precisão e segurança.</p>
+      </div>
+      <div class="curso-item" id="edificacoes">
+        <h3>Técnico em Edificações</h3>
+        <p>Planeje e execute projetos de construção civil, com conhecimentos em arquitetura e engenharia.</p>
+      </div>
+      <div class="curso-item" id="nutricao">
+        <h3>Técnico em Nutrição e Dietética</h3>
+        <p>Elabore planos alimentares e promova saúde por meio da nutrição.</p>
+      </div>
+      <div class="curso-item" id="hospedagem">
+        <h3>Técnico em Hospedagem e Comércio</h3>
+        <p>Desenvolva habilidades para atuar no setor de turismo, hotelaria e comércio.</p>
+      </div>
+      <div class="curso-item" id="desenho-civil">
+        <h3>Técnico em Desenho de Construção Civil</h3>
+        <p>Crie projetos arquitetônicos e desenhos técnicos para obras.</p>
+      </div>
+      <div class="curso-item" id="seguranca">
+        <h3>Técnico em Segurança do Trabalho</h3>
+        <p>Garanta a segurança em ambientes de trabalho, prevenindo acidentes e promovendo bem-estar.</p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <p>© 2025 CETEP LNAB. Todos os direitos reservados.</p>
+      <p>Site criado a partir de um projeto de extensão da Faculdade Santíssimo Sacramento.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
