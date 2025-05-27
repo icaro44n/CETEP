@@ -491,6 +491,25 @@ footer p {
   margin-bottom: 8px;
 }
 
+.logo-easter-egg {
+  position: relative;
+  width: 100%;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.logo-easter-egg img {
+  width: 60px;
+  height: auto;
+  opacity: 0.08;
+  transition: opacity 0.4s;
+  cursor: pointer;
+}
+
+.logo-easter-egg img:hover {
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .menu-desktop {
     display: none;
