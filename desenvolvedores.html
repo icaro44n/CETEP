@@ -14,28 +14,22 @@
             background: #fff;
             padding: 40px 30px;
             border-radius: 12px;
-            max-width: 480px;
+            max-width: 520px;
             margin: 60px auto;
             box-shadow: 0 4px 24px rgba(25, 118, 210, 0.12);
             text-align: center;
         }
         h1 {
             color: #1976d2;
-            margin-bottom: 10px;
-        }
-        .principal {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #0d47a1;
-            margin: 24px 0 16px 0;
-            background: #e3f2fd;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+            margin-bottom: 18px;
+            letter-spacing: 1px;
         }
         h2 {
             color: #1565c0;
-            margin-top: 30px;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+            letter-spacing: 0.5px;
         }
         ul {
             list-style: none;
@@ -44,11 +38,41 @@
         li {
             background: #f1f8e9;
             margin: 8px 0;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 8px;
             color: #333;
             font-weight: 500;
             box-shadow: 0 1px 4px rgba(76, 175, 80, 0.07);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        li:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+        }
+        /* Destaques por categoria */
+        .dev {
+            background: linear-gradient(90deg, #e3f2fd 60%, #bbdefb 100%);
+            color: #0d47a1;
+            font-weight: bold;
+            border-left: 6px solid #1976d2;
+        }
+        .apresentador {
+            background: linear-gradient(90deg, #fffde7 60%, #ffe082 100%);
+            color: #b28704;
+            font-weight: bold;
+            border-left: 6px solid #ffd600;
+        }
+        .colaborador {
+            background: linear-gradient(90deg, #fce4ec 60%, #f8bbd0 100%);
+            color: #ad1457;
+            font-weight: bold;
+            border-left: 6px solid #ec407a;
+        }
+        .instituicao {
+            background: linear-gradient(90deg, #e0f7fa 60%, #80deea 100%);
+            color: #006064;
+            font-weight: bold;
+            border-left: 6px solid #00bcd4;
         }
         a.voltar {
             display: inline-block;
@@ -68,16 +92,27 @@
 </head>
 <body>
     <div class="container">
-        <h1>Equipe de Desenvolvimento</h1>
-        <div class="principal">Desenvolvedor Principal: Icaro Henrique Costa Silva</div>
-        <h2>Colaboradores</h2>
+        <h1>Equipe do Projeto</h1>
+        <h2>Desenvolvedor</h2>
         <ul>
-            <li>Maria Luiza Costa </li>
-            <li>Carlos Souza</li>
-            <li>Ana Paula</li>
-            <li>Lucas Pereira</li>
-            <li>Fernanda Lima</li>
-            <li>Rafael Costa</li>
+            <li class="dev">Ícaro Henrique Costa Silva</li>
+        </ul>
+        <h2>Apresentadores do Projeto à Instituição</h2>
+        <ul>
+            <li class="apresentador">Arthur José Dantas Torres</li>
+            <li class="apresentador">João Pedro Guimarães Pedrosa</li>
+            <li class="apresentador">Maria Luiza Costa Araujo</li>
+            <li class="apresentador">Ícaro Henrique Costa Silva</li>
+        </ul>
+        <h2>Instituição</h2>
+        <ul>
+            <li class="instituicao">CETEP - Centro Territorial de Educação Profissional</li>
+        </ul>
+        <h2>Colaboradores de Apoio</h2>
+        <ul>
+            <li class="colaborador">William Wallace dos Santos Regis</li>
+            <li class="colaborador">Adcleison Pereira Da Costa</li>
+            <li class="colaborador">Ronald Oliveira</li>
         </ul>
         <a href="index.html" class="voltar">Voltar ao Início</a>
     </div>
